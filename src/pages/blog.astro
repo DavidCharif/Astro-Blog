@@ -1,5 +1,6 @@
 ---
-
+import Navigation from '../components/Navigation.astro';
+const pageTitle = "My Astro Learning Bloge";
 ---
 
 <html lang="en">
@@ -14,7 +15,8 @@
     <a href="/Astro-Blog/">Home</a>
     <a href="/Astro-Blog/about/">About</a>
     <a href="/Astro-Blog/blog">Blog</a>
-    <h1>My Astro Learning Blog</h1>
+    <h1>{pageTitle}</h1>
     <p>This is where I will post about my journey learning Astro.</p>
+    <Navigation />
   </body>
 </html>

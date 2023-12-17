@@ -7,7 +7,8 @@ module.exports = {
     "overrides": [
         {
             "env": {
-                "node": true
+                "node": true,
+                "astro/astro": true
             },
             "files": [
                 ".eslintrc.{js,cjs}"

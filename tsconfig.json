@@ -1,8 +1,10 @@
 {
   "extends": "astro/tsconfigs/base",
   "compilerOptions": {
-    "jsx": "react-jsx",    
+    "jsx": "react-jsx",  
+    "moduleResolution": "Classic",  
     "strict": true,
+    "resolveJsonModule": false,
     "jsxImportSource": "preact",
     "strictNullChecks": true,
     "allowJs": true

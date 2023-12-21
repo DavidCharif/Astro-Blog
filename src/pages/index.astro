@@ -28,46 +28,56 @@ if (innerArray.length > 0) {
 }
 // This is the statement that logs the outer array to the console
 ---
-
-<style>
- article.blogPost.focus {
-    border: 10px solid red;
-}
-</style>
-<script>
+<script >
+  import { navigate } from 'astro:transitions/client';
+  document.addEventListener('astro:page-load', () => {
+  console.log('Script on index')
   const container = document.getElementById("blogHome");
   let index = 0; // the current focused post index
   const elements = container?.querySelectorAll(".blogPost"); // an array of elements with data-slug attribute
   console.log('elements', elements)
+  let timer: ReturnType<typeof setTimeout> // a variable to store the timeout id
   container?.addEventListener("wheel", (event) => {
     event.preventDefault(); // prevent the default scrolling
+    if (timer) {
+      // clear the previous timeout if any
+      clearTimeout(timer);
+    }
     if (event.deltaY > 0) {
       // scroll down
       index++; // increment the index
-      if (elements && index >= elements.length) {
-        // check the upper bound
-        index = elements.length - 1; // set the index to the last post
+      if (elements) {
+        // use modulo to wrap the index around the length of the elements array
+        index = (index + elements.length) % elements.length;
       }
     } else {
       // scroll up
       index--; // decrement the index
-      if (index < 0) {
-        // check the lower bound
-        index = 0; // set the index to the first post
+      if (elements) {
+        // use modulo to wrap the index around the length of the elements array
+        index = (index + elements.length) % elements.length;
       }
     }
     if (elements) {
       cleanClasses(elements)
       elements[index].classList.add('focus')
       elements[index].scrollIntoView({behavior: 'smooth', inline: 'center'}); // scroll the post into view
+      timer = setTimeout(() => {
+        // set a timeout to open the focused post after X milliseconds
+        const url = elements[index].querySelector('button a')?.getAttribute("href") // get the url of the focused post
+        console.log('url', url)
+        navigate(url?.toString() ?? "")
+       
+      }, 1500); // replace X with the desired time in milliseconds
     }
   });
 
-  function cleanClasses (elements : NodeListOf<Element>) : void {
+  function cleanClasses (elements: NodeListOf<Element> ) {
     elements.forEach(element => {
       element.classList?.remove('focus')
     })
   }
+})
 </script>
 
 <BaseLayout pageTitle={pageTitle}>

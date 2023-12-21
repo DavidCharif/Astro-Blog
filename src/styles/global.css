@@ -110,3 +110,10 @@ html.dark {
   gap: 25px;
 }
 
+body {
+  transition: opacity 0.5s; /* change the opacity of the body with a 0.5 second duration */
+}
+
+body.loading {
+  opacity: 0; /* set the opacity of the body to 0 when loading */
+}

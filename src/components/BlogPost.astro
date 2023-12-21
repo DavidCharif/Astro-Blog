@@ -1,9 +1,49 @@
 ---
-const { url, title } = Astro.props;
+import Button from "../components/Button.astro";
+const { url, title, image, description } = Astro.props;
+const descriptionShort = description.substring(0, 100);
 ---
 
-<li>
-  <a href={url}>
-    {title}
-  </a>
-</li>
+<style>
+  .imageText {
+    position: relative;
+    aspect-ratio: 1/1;
+    display: flex;
+    flex-direction: column;
+  }
+  .image {
+    aspect-ratio: 1/1;
+  }
+  .asImage {
+    height: 100%;
+    width: 100%;
+    aspect-ratio: 1/1;
+    background-color: rgba(255, 0, 0, 0.26);
+  }
+  .text {
+    position: absolute;
+  }
+  article {
+    width: 30vw;
+    height: 50%;
+    display: flex;
+    width: 500px;
+    height: 500px;
+  }
+</style>
+<article class="blogPost">
+  <div class="imageText">
+    <div class="image">
+      <!-- <img src={urlImage} alt={alt} /> -->
+      <div class="asImage"></div>
+    </div>
+    <div class="text">
+      <p>{descriptionShort}</p>
+    </div>
+    <Button>
+      <a href={url}>
+        {title}
+      </a>
+    </Button>
+  </div>
+</article>
